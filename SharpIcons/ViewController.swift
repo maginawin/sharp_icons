@@ -236,7 +236,15 @@ class ViewController: NSViewController, SettingsViewControllerProtocol  {
         
         image.unlockFocus()
         
-        return image.tiffRepresentation
+        guard let data = image.tiffRepresentation else {
+            return nil
+        }
+        
+        guard let rep: NSBitmapImageRep = NSBitmapImageRep.init(data: data) else {
+            return nil
+        }
+        
+        return rep.representation(using: .png, properties: [:])
     }
     
     
